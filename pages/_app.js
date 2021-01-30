@@ -1,4 +1,5 @@
 import '../styles/globals.css'
+import 'fontsource-roboto';
 
 import { Provider } from 'next-auth/client'
 

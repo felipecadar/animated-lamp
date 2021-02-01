@@ -1,9 +1,12 @@
 import React from 'react';
-import { signIn, signOut, useSession } from 'next-auth/client'
-import {Button} from "@material-ui/core"
+import {useSession } from 'next-auth/client'
+import { useRouter } from 'next/router'
 
-export default function Home() {
+function Home() {
+    const router = useRouter()
+
     const [ session, loading ] = useSession()
+    if (!loading && !session) router.push('/Login')
 
     return (
         <div>
@@ -11,3 +14,6 @@ export default function Home() {
         </div>
     )
 }
+
+
+export default Home

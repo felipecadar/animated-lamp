@@ -1,31 +1,26 @@
 import React from 'react'
-
 import Grid from '@material-ui/core/Grid'
-import { useSession } from 'next-auth/client'
-import { makeStyles } from '@material-ui/core/styles';
-
-import LoginBox from '../src/LoginBox';
-
-
-const useStyles = makeStyles((theme) => ({
-
-}));
-
+import Button from '@material-ui/core/Button'
+import Link from 'next/link'
 
 export default function Page() {
-  const classes = useStyles();
-  const [ session, loading ] = useSession()
 
   return (
-    
-    <Grid item container direction='row' justify='center' alignItems='flex-start' >
+
+    <Grid item container direction='column' justify='flex-start' alignItems='center' spacing={3} >
 
       <Grid item xs={10} sm={8} lg={6}>
 
-      {!session &&
-        <LoginBox/>
-      }
-      
+        <Link href="/home">
+          <Button>Home</Button>
+        </Link>
+      </Grid>
+
+      <Grid item xs={10} sm={8} lg={6}>
+        <Link href="/Login">
+          <Button>Login</Button>
+        </Link>
+
       </Grid>
 
     </Grid>

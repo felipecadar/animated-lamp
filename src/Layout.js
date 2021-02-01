@@ -9,7 +9,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Avatar from '@material-ui/core/Avatar';
 import { signOut, useSession } from 'next-auth/client'
-import { Grid } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
+import Link from 'next/link';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -61,7 +63,9 @@ function Layout({ children }) {
                         alignItems="center"
                     >
                         <Grid item>
-                            <Typography className={classes.title}> Header! </Typography>
+                            <Link href="/">
+                                <Typography className={classes.title}> Header! </Typography>
+                            </Link>
                         </Grid>
                         <Grid item>
                             {session && (

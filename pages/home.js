@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/styles'
 import { BorderStyle } from '@material-ui/icons';
 import { FormControlLabel, FormGroup, Checkbox } from '@material-ui/core';
 
+
 const useStyles = makeStyles((theme) => ({
     typbox: {
         margin: theme.spacing(2),
@@ -57,7 +58,6 @@ function Home() {
                 </Grid>
                 <Grid item xs={10} md={7} className={classes.textbox}>
                     <TextField
-
                         fullWidth
                         id="outlined-multiline-static"
                         multiline
@@ -92,22 +92,44 @@ function Home() {
                 <Grid item xs={10} md={3} className={classes.typbox}>
                     <Typography variant="h3">Objetivos</Typography>
                 </Grid>
-                <Grid item xs={10} md={7} className={classes.textbox}>
-                    <FormGroup column>
-                        <FormControlLabel
-                            control={<Checkbox checked={false} name="checkedA" />}
-                            label="Inteiros"
-                        />
-                        <FormControlLabel
-                            control={<Checkbox checked={false} name="checkedA" />}
-                            label="Reais"
-                        />
-                        <FormControlLabel
-                            control={<Checkbox checked={false} name="checkedA" />}
-                            label="Naturais"
-                        />
-                    </FormGroup>
+                <Grid item container xs={10} md={7} direction="row">
+
+                    <Grid item className={classes.textbox}>
+                        <FormGroup column>
+                            <FormControlLabel
+                                control={<Checkbox checked={false} name="checkedA" />}
+                                label="Inteiros"
+                            />
+                            <FormControlLabel
+                                control={<Checkbox checked={false} name="checkedA" />}
+                                label="Reais"
+                            />
+                            <FormControlLabel
+                                control={<Checkbox checked={false} name="checkedA" />}
+                                label="Naturais"
+                            />
+                        </FormGroup>
+                    </Grid>
+
+                    <Grid item className={classes.textbox}>
+                        <FormGroup column>
+                            <FormControlLabel
+                                control={<Checkbox checked={false} name="checkedA" />}
+                                label="Inteiros"
+                            />
+                            <FormControlLabel
+                                control={<Checkbox checked={false} name="checkedA" />}
+                                label="Reais"
+                            />
+                            <FormControlLabel
+                                control={<Checkbox checked={false} name="checkedA" />}
+                                label="Naturais"
+                            />
+                        </FormGroup>
+                    </Grid>
+
                 </Grid>
+
 
             </Grid>
 

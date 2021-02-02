@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useSession } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import TextField from "@material-ui/core/TextField";
@@ -30,12 +30,28 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+
+
 function Home() {
+    const [session, loading] = useSession()
+    if (!loading && !session) router.push('/Login')
+
     const router = useRouter()
     const classes = useStyles()
 
-    const [session, loading] = useSession()
-    if (!loading && !session) router.push('/Login')
+    const quantityText = useRef()
+    const questionText = useRef()
+    const funcionText = useRef()
+
+    function quantityOnChange(e) {
+        console.log(quantityText.current.value)
+    }
+    function funcionOnChange(e) {
+        console.log(funcionText.current.value)
+    }
+    function questionOnChange(e) {
+        console.log(questionText.current.value)
+    }
 
     return (
         <Grid container direction="column" alignItems="center" justify="flex-start">
@@ -44,6 +60,8 @@ function Home() {
                     <Typography variant="h3">1 enunciado</Typography>
                     <div>
                         <TextField
+                            inputRef={quantityText}
+                            onChange={quantityOnChange}
                             inputProps={{ min: 0, style: { textAlign: 'center', fontSize: 40 } }} // the change is here
                             id="standard-number"
                             type="number"
@@ -58,6 +76,8 @@ function Home() {
                 </Grid>
                 <Grid item xs={10} md={7} className={classes.textbox}>
                     <TextField
+                        inputRef={questionText}
+                        onChange={questionOnChange}
                         fullWidth
                         id="outlined-multiline-static"
                         multiline
@@ -75,7 +95,8 @@ function Home() {
                 </Grid>
                 <Grid item xs={10} md={7} className={classes.textbox}>
                     <TextField
-
+                        inputRef={funcionText}
+                        onChange={funcionOnChange}
                         fullWidth
                         id="outlined-multiline-static"
                         multiline

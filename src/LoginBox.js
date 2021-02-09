@@ -46,7 +46,8 @@ export default function SignIn() {
         </Typography>
         
 
-        <Button className={classes.submit} variant='outlined'  onClick={() => signIn('github')}>Sign in with GitHub</Button>
+        <Button className={classes.submit} variant='outlined'  onClick={() => signIn()}>Sign in with GitHub</Button>
+        {/* <Button className={classes.submit} variant='outlined'  onClick={() => signIn('github')}>Sign in with GitHub</Button> */}
 
       </div>
 

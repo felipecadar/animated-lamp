@@ -34,9 +34,10 @@ const useStyles = makeStyles((theme) => ({
 
 function Home() {
     const [session, loading] = useSession()
+    
+    const router = useRouter()
     if (!loading && !session) router.push('/Login')
 
-    const router = useRouter()
     const classes = useStyles()
 
     const quantityText = useRef()
@@ -113,7 +114,7 @@ function Home() {
                 <Grid item xs={10} md={3} className={classes.typbox}>
                     <Typography variant="h3">Objetivos</Typography>
                 </Grid>
-                <Grid item container xs={10} md={7} direction="row">
+                {/* <Grid item container xs={10} md={7} direction="row">
 
                     <Grid item className={classes.textbox}>
                         <FormGroup column>
@@ -149,7 +150,7 @@ function Home() {
                         </FormGroup>
                     </Grid>
 
-                </Grid>
+                </Grid> */}
 
 
             </Grid>

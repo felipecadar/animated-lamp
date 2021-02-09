@@ -16,20 +16,32 @@ const options = {
       id: 'email-login',
       name: "Email and Password",
       async authorize(credentials) {
-        const {email, password} = credentials;
-        const user = await User.findOne({email})
-        if (!user){
+        connectDatabase();
+        const { email, password } = credentials;
+
+        try {
+          const user = await User.findOne({ email })
+          const valid = await user.isValidPassword(password)
+          if (valid) {
+            console.log("Correct!")
+            const sessionUser = {
+              name: user.name,
+              email: user.email,
+              image: user.image
+            }
+
+            return sessionUser
+          } else {
+            console.log("Wrong Password!")
+            return null
+          }
+        } catch (error) {
+          console.log(error)
           console.log(`User ${email} not found`)
           return null
         }
-        
-        if (user.isValidPassword(password)){
-          console.log("Correct!")
-          return user
-        }
-        
-        console.log(`Invalid Password`)
-        return null
+
+
       },
       credentials: {
         email: { label: "Email", type: "text ", placeholder: "email@net.com" },
@@ -37,7 +49,7 @@ const options = {
       }
     }),
   ],
-  
+
   // A database is optional, but required to persist accounts in a database
   database: process.env.DATABASE_URL,
   secret: process.env.SECRET,

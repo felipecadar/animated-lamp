@@ -13,11 +13,11 @@ export default async function handler(req, res) {
             return
         }
 
-        const imgURL = "";
+        const image = `https://avatars.dicebear.com/4.5/api/gridy/${email}.svg`;
         const newUser = new User({
             name,
             email,
-            imgURL,
+            image,
             password,
         })
 

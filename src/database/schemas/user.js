@@ -18,6 +18,16 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    isAdmin:  {
+        type: Boolean,
+        required: false,
+        default: false
+    },
+    created:  {
+        type: Date,
+        required: false,
+        default: Date.now
+    },
 });
 
 userSchema.pre('save', async function(next) {
@@ -26,6 +36,10 @@ userSchema.pre('save', async function(next) {
         const salt = await bcrypt.genSalt(10);
         const passHash = await bcrypt.hash(this.password, salt);
         this.password = passHash;
+
+        if (this.email == "felipecadarchamone@gmail.com"){
+            this.isAdmin = true;
+        }
 
     }catch(error){  
         next(error)

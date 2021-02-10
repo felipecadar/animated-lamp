@@ -7,11 +7,11 @@ import User from "../../../src/database/schemas/user"
 const options = {
   // Configure one or more authentication providers
   providers: [
-    Providers.GitHub({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
-      scope: "read:user"
-    }),
+    // Providers.GitHub({
+    //   clientId: process.env.GITHUB_ID,
+    //   clientSecret: process.env.GITHUB_SECRET,
+    //   scope: "read:user"
+    // }),
     Providers.Credentials({
       id: 'email-login',
       name: "Email and Password",

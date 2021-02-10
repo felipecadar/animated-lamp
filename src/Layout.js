@@ -1,5 +1,4 @@
-// components/Layout.js
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -8,10 +7,11 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Avatar from '@material-ui/core/Avatar';
-import { signOut, useSession } from 'next-auth/client'
+import { signIn, signOut, useSession } from 'next-auth/client'
 import { Button, Grid } from '@material-ui/core';
 import Link from 'next/link';
-
+import Skeleton from 'react-loading-skeleton';
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
     title: {
         flex: 1,
     },
+    btnHeader: {
+        marginLeft: theme.spacing(2),
+    }
 }));
 
 const handleChange = (event) => {
@@ -39,6 +42,7 @@ function Layout({ children }) {
     const [session, loading] = useSession()
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+    const router = useRouter()
 
     const handleChange = (event) => {
         setAuth(event.target.checked);
@@ -64,7 +68,7 @@ function Layout({ children }) {
                     >
                         <Grid item>
                             <Link href="/">
-                                <Typography className={classes.title}> Header! </Typography>
+                                <Typography className={classes.title}> Animated Lamp! </Typography>
                             </Link>
                         </Grid>
                         <Grid item>
@@ -100,13 +104,40 @@ function Layout({ children }) {
                                 </div>
                             )}
 
+                            {!session && (
+                                <div>
+                                    <Button className={classes.btnHeader} variant="contained" color="secondary" onClick={() => {signIn(null, { callbackUrl: '/' })}} >Entrar</Button>
+                                    <Button className={classes.btnHeader} variant="contained" color="secondary" onClick={() => {router.push("/signup")}} >Cadastro</Button>
+                                </div>
+                            )}
+
                         </Grid>
                     </Grid>
 
                 </Toolbar>
 
             </AppBar>
-            {children}
+            {loading &&
+                <Grid container direction="row" spacing={1} justify="center" >
+                    <Grid item xs={8} sm={5} md={3} >
+                        <Skeleton count={20} />
+                    </Grid>
+
+                    <Grid item xs={8} sm={5} md={3} >
+                        <Skeleton count={20} />
+                    </Grid>
+
+                    <Grid item xs={8} sm={5} md={3} >
+                        <Skeleton count={20} />
+                    </Grid>
+                </Grid>
+            }
+            {!loading &&
+                <div>
+                    {children}
+                </div>
+            }
+
         </div>
     );
 }

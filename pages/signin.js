@@ -49,29 +49,22 @@ export default function SignUp() {
         e.preventDefault();
         
         setloading(true);
+
+
+        signIn("email-login", {redirect: false, email, password:pass })
+        .then( succ => {
+            setloading(false);
+            console.log("succ")
+            console.log(succ)
+        })
+        .catch( error => {
+            setloading(false);
+            console.log("error")
+            console.log(error)
+        })
+
         
-        const res = await signUp({ name, email, password: pass })
-        
-        setloading(false);
-        
-        console.log(`AAAAAAAAAAA ${res.status}`)
-        console.log(res)
-        
-        if (res.status != 200) {
-            console.log(`Error: ${res.error}`);
-            addToast(res.error, {
-                appearance: "error",
-                autoDismiss: true,
-                placement: "top-center"
-            });
-        } else {
-            addToast("Obrigado por cadastrar!", {
-                appearance: "success",
-                autoDismiss: true,
-                placement: "top-center"
-            });
-            signIn("email-login", {email, password:pass, callbackUrl: '/' })
-        }
+
 
     }
 
@@ -87,19 +80,6 @@ export default function SignUp() {
         </Typography>
                 <form className={classes.form} noValidate>
                     <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <TextField
-                                onChange={(e) => { setname(e.target.value) }}
-                                autoComplete="name"
-                                name="name"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="name"
-                                label="Nome"
-                                autoFocus
-                            />
-                        </Grid>
 
                         <Grid item xs={12}>
                             <TextField
@@ -126,27 +106,7 @@ export default function SignUp() {
                                 autoComplete="current-password"
                             />
                         </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                onChange={(e) => { setpassConfirm(e.target.value) }}
-                                variant="outlined"
-                                required
-                                fullWidth
-                                disabled={pass.length == 0}
-                                error={!(pass === passConfirm) && (passConfirm.length > 0)}
-                                name="passwordConfirm"
-                                label="Confirmar Senha"
-                                type="password"
-                                id="passwordConfirm"
-                                autoComplete="current-password"
-                            />
-                        </Grid>
-                        {/* <Grid item xs={12}>
-                            <FormControlLabel
-                                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                label="I want to receive inspiration, marketing promotions and updates via email."
-                            />
-                        </Grid> */}
+
                     </Grid>
                     <Button
                         type="submit"
@@ -155,14 +115,14 @@ export default function SignUp() {
                         color="primary"
                         className={classes.submit}
                         onClick={handleClick}
-                        disabled={email.length == 0 || name.length == 0 || pass.length == 0 || passConfirm.length == 0 || !(pass === passConfirm)}
+                        disabled={email.length == 0 || pass.length == 0}
                     >
-                        Fazer meu cadastro!
+                        Entrar!
                     </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
-                            <Button onClick={() => { router.push("/signin") }}>
-                                Já tem conta? Então faz o login aqui.
+                            <Button onClick={() => { router.push("/signup") }}>
+                                Não tem conta? Então crie uma aqui.
                             </Button>
                         </Grid>
                     </Grid>

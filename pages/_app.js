@@ -6,6 +6,7 @@ import Layout from "../src/Layout"
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../src/theme';
+import { ToastProvider } from 'react-toast-notifications'
 
 function MyApp({ Component, pageProps }) {
 
@@ -20,10 +21,12 @@ function MyApp({ Component, pageProps }) {
   return (
     <Provider session={pageProps.session}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <ToastProvider>
+          <CssBaseline />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ToastProvider>
       </ThemeProvider>
     </Provider>
   )

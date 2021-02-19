@@ -7,59 +7,64 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    email:  {
+    email: {
         type: String,
         required: true,
         unique: true,
-        lowercase:true
+        lowercase: true
     },
     image: String,
-    password:  {
+    password: {
         type: String,
         required: true,
     },
-    isAdmin:  {
+    isAdmin: {
         type: Boolean,
         required: false,
         default: false
     },
-    created:  {
+    createdAt: {
         type: Date,
         required: false,
         default: Date.now
     },
+    updatedAt: {
+        type: Date,
+        required: false,
+        default: Date.now
+    }
 });
 
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async function (next) {
     try {
         // Generate a salt
         const salt = await bcrypt.genSalt(10);
         const passHash = await bcrypt.hash(this.password, salt);
         this.password = passHash;
 
-        if (this.email == "felipecadarchamone@gmail.com"){
+        if (this.email == "felipecadarchamone@gmail.com") {
             this.isAdmin = true;
         }
 
-    }catch(error){  
+    } catch (error) {
         next(error)
     }
 });
 
 
-userSchema.methods.isValidPassword = async function(newPassword) {
+userSchema.methods.isValidPassword = async function (newPassword) {
     try {
         // Generate a salt
         return await bcrypt.compare(newPassword, this.password);
 
-    }catch(error){  
+    } catch (error) {
         throw new Error(error)
     }
 }
 
 //Create a model
-const User = mongoose.models["user"] 
-            ? mongoose.model("user") 
-            : mongoose.model("user", userSchema)
+const User = mongoose.models["user"]
+    ? mongoose.model("user")
+    : mongoose.model("user", userSchema)
 
 export default User;
